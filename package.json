@@ -1,0 +1,22 @@
+{
+  "name": "aoc-helpers",
+  "version": "0.0.1",
+  "description": "A collection of functions for solving Advent of Code problems",
+  "main": "source/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JLRishe/aoc-helpers.git"
+  },
+  "author": "James Rishe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JLRishe/aoc-helpers/issues"
+  },
+  "homepage": "https://github.com/JLRishe/aoc-helpers#readme",
+  "dependencies": {
+    "ramda": "^0.25.0"
+  }
+}
