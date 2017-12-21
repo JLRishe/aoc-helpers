@@ -1,4 +1,5 @@
-const { __, compose, curry, map, split, add, length, mathMod, drop, take, prop, apply } = require('ramda');
+const { __, compose, curry, map, split, add, mathMod, prop, apply, values, identity } = require('ramda');
+const { length, take, drop, head, last, groupBy, unnest, reverse, zip, times } = require('ramda');
 
 
 // logging
@@ -30,6 +31,26 @@ const swapValues = curry((val1, val2, arr) => map(
     el => el === val1 ? val2 : (el === val2 ? val1 : el),
     arr
 ));
+
+// [*] -> [[Number, *]]
+const enumerate = arr => zip(times(identity, arr.length), arr);
+
+// [[*]] -> [[*]]
+const invertArr = compose(
+    map(map(last)),
+    values,
+    groupBy(head),
+    unnest,
+    map(enumerate)
+);
+
+// [[*]] -> [[*]]
+const rotate2d = compose(
+    invertArr,
+    reverse
+);
+
+
 
 
 // regex
@@ -72,6 +93,9 @@ module.exports = {
     , rotate
     , swapPos
     , swapValues
+    , enumerate
+    , invertArr
+    , rotate2d
 
     , applyPattern
     , tokenize
