@@ -1,6 +1,6 @@
 const { __, compose, curry, map, defaultTo, apply, merge, omit } = require('ramda');
 const { probe, applyPattern } = require('.');
-const { genTransform } = require('func-generators');
+const { genTransform, genStop } = require('func-generators');
 
 const parseInstruc = curry((instrucTypes, line) => compose(
     ([, code, params]) => ({ 
@@ -17,7 +17,7 @@ const applyInstruc = curry((instrucs, state) => {
     const { pos, regs } = state;
 
     if (pos < 0 || pos >= instrucs.length) { 
-        return merge(state, { stopped: true }); 
+        return genStop; 
     }
 
     const updates = instrucs[pos].instruc(state);

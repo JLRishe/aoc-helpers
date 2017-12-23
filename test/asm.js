@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { asmEngine } = require('../source/asm');
+const { asmEngine } = require('../asm');
 const { genTake } = require('func-generators');
 
 describe('asm engine', () => {
@@ -20,17 +20,15 @@ describe('asm engine', () => {
                 'set c 9',               
             ]
         );
-        const first6 = genTake(6, engine);
         
-        const states = Array.from(first6());
+        const states = Array.from(engine());
         
         assert.deepEqual(states, [
             { pos: 0, regs: {} },
             { pos: 1, regs: { a: 7 } },
             { pos: 2, regs: { a: 7, b: 2 } },
             { pos: 5, regs: { a: 7, b: 2 } },
-            { pos: 6, regs: { a: 7, b: 2, c: 9 } },
-            { pos: 6, regs: { a: 7, b: 2, c: 9 }, stopped: true }
+            { pos: 6, regs: { a: 7, b: 2, c: 9 } }
         ]);
     });
 })
