@@ -17,7 +17,7 @@ const resolveVal = curry((val, { regs }) => compose(
 const parseInstruc = curry((instrucTypes, line) => compose(
     ([, code, params]) => ({ 
         code, 
-        instruc: apply(instrucTypes[code], params ? params.split(/,?\s?/) : [])
+        instruc: apply(instrucTypes[code], params ? params.split(/,|\s|,\s/) : [])
     }),
     applyPattern(/^(\S+)\s?(.+)?/)
 )(line));
@@ -31,7 +31,7 @@ const applyInstruc = curry((instrucs, state) => {
     if (pos < 0 || pos >= instrucs.length) { 
         return genStop; 
     }
-
+    
     const instruc = instrucs[pos];
     const stateWithInstruc = merge(state, { instruc: instruc.code })
     const updates = instruc.instruc(state);
