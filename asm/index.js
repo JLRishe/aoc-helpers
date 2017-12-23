@@ -1,6 +1,18 @@
-const { __, compose, curry, map, defaultTo, apply, merge, omit } = require('ramda');
+const { __, compose, curry, map, defaultTo, apply, merge, omit, prop } = require('ramda');
 const { probe, applyPattern } = require('..');
 const { genTransform, genStop } = require('func-generators');
+
+// String -> { * } -> *
+const regVal = compose(
+    defaultTo(0),
+    prop
+);
+
+// String -> State -> *
+const resolveVal = curry((val, { regs }) => compose(
+   n => Number.isNaN(n) ? regVal(val, regs) : n,
+   parseFloat
+)(val));
 
 const parseInstruc = curry((instrucTypes, line) => compose(
     ([, code, params]) => ({ 
@@ -41,4 +53,5 @@ const asmEngine = curry((instrucTypes, initialState, lines) => compose(
 
 module.exports = {
     asmEngine
+    , resolveVal
 };

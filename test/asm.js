@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { asmEngine } = require('../asm');
+const { asmEngine, resolveVal } = require('../asm');
 const { genTake } = require('func-generators');
 
 describe('asm engine', () => {
@@ -32,5 +32,12 @@ describe('asm engine', () => {
             { pos: 6, regs: { a: 7, b: 2, c: 9 }, instruc: 'set' },
             { pos: 7, regs: { a: 3, b: 2, c: 9 }, instruc: 'set' }
         ]);
+    });
+    
+    it('should resolve values', () => {
+        const state = { regs: { a: 2, b: -3 } };
+        assert.equal(resolveVal('-9', state), -9);
+        assert.equal(resolveVal('b' , state), -3);
+        assert.equal(resolveVal('d' , state),  0);
     });
 })
