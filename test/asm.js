@@ -17,7 +17,8 @@ describe('asm engine', () => {
                 'jmp 3',
                 'set b 2',
                 'set b 2',
-                'set c 9',               
+                'set c 9',
+                'set a 3'
             ]
         );
         
@@ -25,10 +26,11 @@ describe('asm engine', () => {
         
         assert.deepEqual(states, [
             { pos: 0, regs: {} },
-            { pos: 1, regs: { a: 7 } },
-            { pos: 2, regs: { a: 7, b: 2 } },
-            { pos: 5, regs: { a: 7, b: 2 } },
-            { pos: 6, regs: { a: 7, b: 2, c: 9 } }
+            { pos: 1, regs: { a: 7 }, instruc: 'set' },
+            { pos: 2, regs: { a: 7, b: 2 }, instruc: 'set' },
+            { pos: 5, regs: { a: 7, b: 2 }, instruc: 'jmp' },
+            { pos: 6, regs: { a: 7, b: 2, c: 9 }, instruc: 'set' },
+            { pos: 7, regs: { a: 3, b: 2, c: 9 }, instruc: 'set' }
         ]);
     });
 })

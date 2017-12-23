@@ -20,12 +20,14 @@ const applyInstruc = curry((instrucs, state) => {
         return genStop; 
     }
 
-    const updates = instrucs[pos].instruc(state);
+    const instruc = instrucs[pos];
+    const stateWithInstruc = merge(state, { instruc: instruc.code })
+    const updates = instruc.instruc(state);
     const { posChange, setReg } = updates;
     const np = pos + defaultTo(1, posChange);
     const newRegs = setReg ? merge(regs, updates.setReg) : regs;
   
-    return merge(state, merge({ pos: np, regs: newRegs }, omit(['posChange', 'setReg'], updates)));
+    return merge(stateWithInstruc, merge({ pos: np, regs: newRegs }, omit(['posChange', 'setReg', 'instruc'], updates)));
 });
 
 // { InstrucName: (* -> *) } -> State -> [String]
