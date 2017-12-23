@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JLRishe/aoc-helpers#readme",
   "dependencies": {
+    "func-generators": "file:../func-generators",
     "ramda": "^0.25.0"
   }
 }
